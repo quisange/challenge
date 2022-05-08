@@ -1,0 +1,119 @@
+#see for java tunning https://docs.oracle.com/cd/E15523_01/web.1111/e13814/jvm_tuning.htm#PERFM161
+version: '3.3'
+services:
+  #Docker Compose creates a virtual network between the services and the DNS name 
+  #used for each service is its name: that’s why it’s possible to use eureka-discovery as the hostname.
+
+  ##########################################################################
+  #database service
+  ##########################################################################
+  postgres_db:
+    container_name: postgres
+    image: postgres:latest
+    ports:
+      - 5432:5432
+    volumes:
+      #allow *.sql, *.sql.gz, or *.sh and is execute only if data directory is empty
+      - ./dbfiles:/docker-entrypoint-initdb.d
+      - /var/lib/postgres_data:/var/lib/postgresql/data
+    environment:
+      #default postgres super user
+      POSTGRES_USER: postgres
+      #default passwor for postgres super user, it is only the required envvar for postgres image
+      POSTGRES_PASSWORD: postgresspass
+      #main database if name is not specific thname of super user is use
+      POSTGRES_DB: postgres
+
+  registry-discovery:
+    container_name: id-eureka
+    image: develcorp/microservice-docker-eurekaserver:0.0.1-SNAPSHOT
+    ports:
+      - 9000:9000
+    environment:
+       - JAVA_OPTS=
+         -Xms256M 
+         -Xmx256M
+         
+ ##########################################################################     
+ #configuration service
+ ##########################################################################  
+  configuration:
+    container_name: id-config
+    image: develcorp/microservice-docker-config-server:0.0.1-SNAPSHOT
+    volumes:
+      #this it use because we are using a local github repository /host/path:/container/path use ./ for relative path
+      - ./config-server-repo:/tmp/config-server-repo
+      #All projets will have a variable value  DEUREKA_SERVER this tell where find a registry-discovery server 
+    environment:
+      - JAVA_OPTS=
+        -Xms256M
+        -Xmx256M
+        -DEUREKA_SERVER=http://registry-discovery:9000/eureka
+        -DREMOTE_REPOSITORY=https://pvidalm037@bitbucket.org/operadora/operadora-repo.git
+        -DREPOSITORY_DIR=backends/config-services-files
+        -DREPOSITORY_BRANCH=trunk
+        -DCONFIG_SERVER_USER=develcorp
+        -DCONFIG_SERVER_PASSWORD=develcorppass
+         #-Dspring.cloud.config.server.native.searchLocations=/var/config-data
+    depends_on:
+      - registry-discovery
+    ports:
+      - 9002:9002
+
+
+
+  ##########################################################################
+  #customer service
+  ##########################################################################
+  customer:
+    container_name: id-customer
+    image: develcorp/microservice-docker-customer:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -Xms256M
+        -Xmx256M
+        -DEUREKA_SERVER=http://registry-discovery:9000/eureka/
+    #         -Dspring.profiles.active=development
+    depends_on:
+      - registry-discovery
+      - configuration
+      - postgres_db
+    ports:
+      - 8081:8081
+
+  ##########################################################################
+  #account service
+  ##########################################################################
+  product-catalog:
+    container_name: id-account
+    image: develcorp/microservice-docker-account:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -Xms256M
+        -Xmx256M
+        -DEUREKA_SERVER=http://registry-discovery:9000/eureka/
+    depends_on:
+      - registry-discovery
+      - configuration
+      - postgres_db
+    ports:
+      - 8082:8082
+
+  ##########################################################################
+  #transaction service
+  ##########################################################################
+  transactions:
+    container_name: id-transaction
+    image: develcorp/microservice-docker-transaction:0.0.1-SNAPSHOT
+    environment:
+      - JAVA_OPTS=
+        -Xms256M
+        -Xmx256M
+        -DEUREKA_SERVER=http://registry-discovery:9000/eureka/
+    #         -Dspring.profiles.active=development
+    depends_on:
+      - registry-discovery
+      - configuration
+      - postgres_db
+    ports:
+      - 8083:8083
