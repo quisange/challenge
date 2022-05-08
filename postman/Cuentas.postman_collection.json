@@ -1,0 +1,206 @@
+{
+	"info": {
+		"_postman_id": "ecfeff0d-3cb9-40a3-9b0e-dca12c800dcb",
+		"name": "Cuentas",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountId\": 585545,\n    \"customerId\": 1,\n    \"accountType\": {\n                    \"accountTypeId\": 1,\n                    \"description\": \"Corriente\"\n                },            \n    \"initialBalance\": 2000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/cuentas",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "listAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Juana\",\n    \"gender\": \"Femenino\",\n    \"age\": 20,\n    \"identification\": \"0194857297\",\n    \"address\": \"Autopiesta\",\n    \"phone\": \"0958375647\",\n    \"password\": \"9573\",\n    \"status\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/cuentas",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"cuentas"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "findByCustomerId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Juana\",\n    \"gender\": \"Femenino\",\n    \"age\": 20,\n    \"identification\": \"0194857297\",\n    \"address\": \"Autopiesta\",\n    \"phone\": \"0958375647\",\n    \"password\": \"9573\",\n    \"status\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/cuentas?customerId=1",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"cuentas"
+					],
+					"query": [
+						{
+							"key": "customerId",
+							"value": "1"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Juana\",\n    \"gender\": \"Femenino\",\n    \"age\": 20,\n    \"identification\": \"0194857297\",\n    \"address\": \"Autopiesta\",\n    \"phone\": \"0958375647\",\n    \"password\": \"9573\",\n    \"status\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/cuentas/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"cuentas",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "reporte",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"name\": \"Juana\",\n    \"gender\": \"Femenino\",\n    \"age\": 20,\n    \"identification\": \"0194857297\",\n    \"address\": \"Autopiesta\",\n    \"phone\": \"0958375647\",\n    \"password\": \"9573\",\n    \"status\": true\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/cuentas/reporte?cliente=1&desde=2022-05-08&hasta=2022-05-09",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"cuentas",
+						"reporte"
+					],
+					"query": [
+						{
+							"key": "cliente",
+							"value": "1"
+						},
+						{
+							"key": "desde",
+							"value": "2022-05-08"
+						},
+						{
+							"key": "hasta",
+							"value": "2022-05-09"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "update",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"accountId\": 585545,\n    \"customerId\": 1,\n    \"accountType\": {\n                    \"accountTypeId\": 2,\n                    \"description\": \"Corriente\"\n                },            \n    \"initialBalance\": 1000\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/cuentas/225487",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"cuentas",
+						"225487"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
