@@ -1,0 +1,23 @@
+server:
+  port: 8081
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:9000/eureka}
+
+spring:
+  application:
+    name: businessdomain-customer
+  cloud:
+    config:
+      discovery:
+        enabled: true
+        service-id: config-server
+      fail-fast: true
+      name: service-customer
+      profile: devel
+      username: develcorp
+      password: develcorppass
+      retry:
+        max-attempts: 1
+        max-interval: 1000
