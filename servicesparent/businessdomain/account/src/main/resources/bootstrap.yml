@@ -1,5 +1,5 @@
 server:
-  port: 8083
+  port: 8082
 eureka:
   client:
     serviceUrl:
@@ -7,14 +7,14 @@ eureka:
 
 spring:
   application:
-    name: businessdomain-transaction
+    name: businessdomain-account
   cloud:
     config:
       discovery:
         enabled: true
         service-id: config-server
       fail-fast: true
-      name: service-transaction
+      name: service-account
       profile: devel
       username: develcorp
       password: develcorppass
