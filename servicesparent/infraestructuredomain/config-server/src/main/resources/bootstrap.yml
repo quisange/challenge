@@ -13,9 +13,9 @@ spring:
     config:
       server:
         git:
-          uri: https://quisange@bitbucket.org/operadora/operadora-repo.git
-          searchPaths: backends/config-services-files
-        default-label: trunk
+          uri: https://github.com/quisange/challenge.git
+          searchPaths: config-services-files
+        default-label: main
   security:
     user:
       name: ${CONFIG_SERVER_USER:develcorp}
