@@ -49,9 +49,9 @@ services:
         -Xms256M
         -Xmx256M
         -DEUREKA_SERVER=http://registry-discovery:9000/eureka
-        -DREMOTE_REPOSITORY=https://pvidalm037@bitbucket.org/operadora/operadora-repo.git
-        -DREPOSITORY_DIR=backends/config-services-files
-        -DREPOSITORY_BRANCH=trunk
+        -DREMOTE_REPOSITORY=https://github.com/quisange/challenge.git
+        -DREPOSITORY_DIR=config-services-files
+        -DREPOSITORY_BRANCH=main
         -DCONFIG_SERVER_USER=develcorp
         -DCONFIG_SERVER_PASSWORD=develcorppass
          #-Dspring.cloud.config.server.native.searchLocations=/var/config-data
