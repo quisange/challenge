@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ExceptionHandler;
+import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -15,13 +16,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+@RestControllerAdvice
 public class ApiExceptionHandler {
 
-    @ExceptionHandler(UnknownHostException.class)
-    public ResponseEntity<ExceptionResponse> handleUnknownHostException(UnknownHostException ex) {
+    @ExceptionHandler(Exception.class)
+    public ResponseEntity<ExceptionResponse> handleUnknownHostException(Exception ex) {
         ExceptionResponse response = new ExceptionResponse("Error de conexion","erorr-404", ex.getMessage());
         return new ResponseEntity(response, HttpStatus.PARTIAL_CONTENT);
     }
+
 
     @ExceptionHandler(BusinessRuleException.class)
     public ResponseEntity<ExceptionResponse> handleBusinessRuleException(BusinessRuleException ex) {
